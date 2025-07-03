@@ -30,9 +30,14 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and push backend image
+      - name: Build and push backend image service-1
         run: |
-          docker build -t $ECR_REGISTRY/$BACKEND_REPO:latest ./backend
+          docker build -t $ECR_REGISTRY/$BACKEND_REPO:latest ./backend/helloService
+          docker push $ECR_REGISTRY/$BACKEND_REPO:latest
+
+      - name: Build and push backend image service-2
+        run: |
+          docker build -t $ECR_REGISTRY/$BACKEND_REPO:latest ./backend/profileService
           docker push $ECR_REGISTRY/$BACKEND_REPO:latest
 
       - name: Build and push frontend image
